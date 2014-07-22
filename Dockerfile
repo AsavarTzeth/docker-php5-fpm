@@ -1,6 +1,9 @@
 FROM debian:wheezy
 MAINTAINER Patrik Nilsson <asavartzeth@gmail.com>
 
+# Let the conatiner know that there is no tty
+ENV DEBIAN_FRONTEND noninteractive
+
 # All our dependencies, in alphabetical order (to ease maintenance)
 # php5-mhash now seem to be provided by php5-common
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -18,7 +21,7 @@ ENV CONF_DIR /etc/php5/fpm
 
 # Find all files in $CONF_DIR and do edits listed below
 RUN find "$CONF_DIR" -type f -exec sed -ri ' \
-    s|\(error_log[\s+=]).*|\1 /proc/self/fd/2|g; \
+    s|(error_log\s+=).*|\1 /proc/self/fd/2|g; \
     s|\S*(daemonize\s+=).*|\1 no|g; \
 ' '{}' ';'
 
