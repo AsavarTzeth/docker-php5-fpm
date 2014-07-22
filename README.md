@@ -1,6 +1,6 @@
-How to use this image:
-----------------------
->docker **run** --name some-php5-fpm --link some-php5-fpm -d asavartzeth/docker-php5-fpm
+#How to use this image:#
+
+    docker run --name some-php5-fpm --link some-php5-fpm -d asavartzeth/php5-fpm
 
 The following environment variables are also honored for configuring your PHP-FPM instance:
 
@@ -11,7 +11,9 @@ Possible Values: alert, error, warning, notice, debug
 Alternative value: /var/run/php5-fpm.sock
 
 To use php5-fpm with unix sockets you may run the container like this:
->docker **run** --name some-php5-fpm --volumes-from some-nginx -d asavartzeth/docker-php5-fpm
+
+    docker run --name some-php5-fpm --volumes-from some-nginx -d asavartzeth/php5-fpm
 
 For the second method to work you must make sure you first run your nginx instance like this:
->docker **run** --name some-nginx -v /var/run -d nginx
+
+    docker run --name some-nginx -v /var/run -d nginx
