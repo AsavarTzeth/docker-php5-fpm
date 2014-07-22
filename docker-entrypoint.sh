@@ -1,20 +1,18 @@
 #!/bin/bash
 set -e
 
-# Always declare configuration directory
-# This way docker-entrypoint.sh is indipendent from Dockerfile and portable
-CONF_DIR=/etc/php5/fpm
-
 # Set default values for configurations
 : ${PHP_FPM_MEMORY_LIMIT:=128M}
 : ${PHP_FPM_LOG_LEVEL:=notice}
 : ${PHP_FPM_LISTEN_TYPE:=127.0.0.1:9000}
 
+# Common config edit function
 set_config() {
     key="$1"
     value="$2"
-    for i in "$CONF_DIR"/*; do
-        sed -ri "s;\S*($key\s+=).*;\1 $value;g" $i
+    # Do a loop so sed can scale with number of files/options
+    for i in $(find -type f); do
+        sed -ri "s|\S*($key\s+=).*|\1 $value|g" $i
     done
 }
 

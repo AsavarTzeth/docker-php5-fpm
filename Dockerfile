@@ -14,9 +14,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         php5-mhash \
         php5-mysql
 
-# Forward logs
-RUN sed -ri "s;(\S*error_log\s+=).*;\1 /proc/self/fd/2;g" /etc/php5/fpm/php-fpm.conf \
-    && sed -ri "s;\S*(daemonize\s+=).*;\1 no;g" /etc/php5/fpm/php-fpm.conf
+ENV CONF_DIR /etc/php5/fpm
+
+# Find all files in $CONF_DIR and do edits listed below
+RUN find "$CONF_DIR" -type f -exec sed -ri ' \
+    s|\(error_log[\s+=]).*|\1 /proc/self/fd/2|g; \
+    s|\S*(daemonize\s+=).*|\1 no|g; \
+' '{}' ';'
 
 WORKDIR /etc/php5/fpm
 
