@@ -5,7 +5,7 @@ MAINTAINER Patrik Nilsson <asavartzeth@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Common environment variables
-ENV CONF_DIR /etc/php5/fpm
+ENV CONF_DIR_PHP5_FPM /etc/php5/fpm
 
 # All our dependencies, in alphabetical order (to ease maintenance)
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         php5-sqlite
 
 # Find config files and edit
-RUN find "$CONF_DIR" -type f -exec sed -ri ' \
+RUN find "$CONF_DIR_PHP5_FPM" -type f -exec sed -ri ' \
     s|(error_log\s+=).*|\1 /proc/self/fd/2|g; \
     s|\S*(daemonize\s+=).*|\1 no|g; \
 ' '{}' ';'

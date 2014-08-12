@@ -4,10 +4,10 @@
 
 The following environment variables are also honored for configuring your PHP-FPM instance:
 
-- -e `PHP_FPM_MEMORY_LIMIT=...` (defaults to “128M”)
-- -e `PHP_FPM_LOG_LEVEL=...` (defaults to notice)  
+- -e `PHP5_FPM_MEMORY_LIMIT=...` (defaults to “128M”)
+- -e `PHP5_FPM_LOG_LEVEL=...` (defaults to notice)  
 Possible Values: alert, error, warning, notice, debug
-- -e `PHP_FPM_LISTEN=...` (defaults to 127.0.0.1:9000)  
+- -e `PHP5_FPM_LISTEN=...` (defaults to 127.0.0.1:9000)  
 Alternative value: /var/run/php5-fpm.sock
 
 To use php5-fpm with unix sockets you may run the container like this:
