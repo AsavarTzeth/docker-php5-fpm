@@ -30,7 +30,7 @@ RUN find "$CONF_DIR_PHP5_FPM" -type f -exec sed -ri ' \
 WORKDIR /etc/php5/fpm
 
 ADD docker-entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 9000
 CMD ["php5-fpm"]
