@@ -1,25 +1,25 @@
 FROM debian:wheezy
 MAINTAINER Patrik Nilsson <asavartzeth@gmail.com>
 
-# Let the conatiner know that there is no tty
-ENV DEBIAN_FRONTEND noninteractive
-
 # Common environment variables
 ENV CONF_DIR_PHP5_FPM /etc/php5/fpm
 
 # All our dependencies, in alphabetical order (to ease maintenance)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        php5-curl \
-        php5-fpm \
-        php5-gd \
-        php5-intl \
-        php5-imagick \
-        php5-ldap \
-        php5-mcrypt \
-        php5-mhash \
-        php5-mysql \
-        php5-pgsql \
-        php5-sqlite
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends \
+	php5-curl \
+	php5-fpm \
+	php5-gd \
+	php5-intl \
+	php5-imagick \
+	php5-ldap \
+	php5-mcrypt \
+	php5-mhash \
+	php5-mysql \
+	php5-pgsql \
+	php5-sqlite
+    rm -rf /var/lib/apt/lists/*
 
 # Find config files and edit
 RUN find "$CONF_DIR_PHP5_FPM" -type f -exec sed -ri ' \
