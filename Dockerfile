@@ -1,21 +1,24 @@
 FROM debian:wheezy
 MAINTAINER Patrik Nilsson <asavartzeth@gmail.com>
 
+ENV PHP_VERSION 5.4.36-0+deb7u3
+ENV PHP_IMAGICK_VERSION 3.1.0~rc1-1+b2
+
 # All our dependencies, in alphabetical order (to ease maintenance)
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
-	php5-curl \
-	php5-fpm \
-	php5-gd \
-	php5-intl \
-	php5-imagick \
-	php5-ldap \
-	php5-mcrypt \
-	php5-mhash \
-	php5-mysql \
-	php5-pgsql \
-	php5-sqlite && \
+	php5-common=$PHP_VERSION \
+	php5-curl=$PHP_VERSION \
+	php5-fpm=$PHP_VERSION \
+	php5-gd=$PHP_VERSION \
+	php5-intl=$PHP_VERSION \
+	php5-imagick=$PHP_IMAGICK_VERSION \
+	php5-ldap=$PHP_VERSION \
+	php5-mcrypt=$PHP_VERSION \
+	php5-mysql=$PHP_VERSION \
+	php5-pgsql=$PHP_VERSION \
+	php5-sqlite=$PHP_VERSION && \
     rm -rf /var/lib/apt/lists/*
 
 # Common environment variables
