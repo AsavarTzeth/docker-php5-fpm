@@ -29,7 +29,8 @@ RUN find "$CONF_DIR_PHP5_FPM" -type f -exec sed -ri ' \
 
 WORKDIR /etc/php5/fpm
 
-ADD docker-entrypoint.sh /entrypoint.sh
+ADD ./docker-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 9000
