@@ -19,13 +19,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         php5-mhash \
         php5-mysql \
         php5-pgsql \
-        php5-sqlite
+        php5-sqlite \
+        mysql-client && \
+	apt-get clean && \
+        rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Find config files and edit
 RUN find "$CONF_DIR_PHP5_FPM" -type f -exec sed -ri ' \
     s|(error_log\s+=).*|\1 /proc/self/fd/2|g; \
     s|\S*(daemonize\s+=).*|\1 no|g; \
-' '{}' ';'
+    s|variables_order.*|variables_order = "EGPCS"|g \
+' '{}' ';' 
 
 WORKDIR /etc/php5/fpm
 
