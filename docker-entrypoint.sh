@@ -10,7 +10,7 @@ function set_config() {
 	key="$1"
 	value="$2"
 	# Edit php.ini, php-fpm.conf & pool.d/www.conf
-	sed -ri "s|\S*($key\s+=).*|\1 $value|" $config_file
+	sed -ri "s|;*\s*($key\s*=\s*).*|\1$value|" $config_file
 }
 
 # Run configuration function for each config file

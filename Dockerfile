@@ -21,13 +21,10 @@ RUN apt-get update && \
 	php5-sqlite=$PHP_VERSION && \
     rm -rf /var/lib/apt/lists/*
 
-# Common environment variables
-ENV CONF_DIR_PHP5_FPM /etc/php5/fpm
-
-# Find config files and edit
-RUN find "$CONF_DIR_PHP5_FPM" -type f -exec sed -ri ' \
-    s|\S*(error_log\s+=).*|\1 /proc/self/fd/2|g; \
-    s|\S*(daemonize\s+=).*|\1 no|g; \
+# Find & update config files
+RUN find /etc/php5/fpm -type f -exec sed -ri ' \
+    s|;*\s*(error_log\s*=\s*).*|\1/proc/self/fd/2|; \
+    s|;*\s*(daemonize\s*=\s*).*|\1no|; \
 ' '{}' ';'
 
 WORKDIR /etc/php5/fpm
