@@ -25,6 +25,7 @@ RUN apt-get update && \
 RUN find /etc/php5/fpm -type f -exec sed -ri ' \
     s|;*\s*(error_log\s*=\s*).*|\1/proc/self/fd/2|; \
     s|;*\s*(daemonize\s*=\s*).*|\1no|; \
+    s|;*\s*(variables_order\s*=\s*).*|\1"EGPCS"|; \
 ' '{}' ';'
 
 WORKDIR /etc/php5/fpm
