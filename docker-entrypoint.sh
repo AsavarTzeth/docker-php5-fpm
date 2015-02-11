@@ -5,7 +5,7 @@ set -e
 : ${PHP5_FPM_LOG_LEVEL:=notice}
 : ${PHP5_FPM_LISTEN:=127.0.0.1:9000}
 
-# Function used to update the service environment configuration
+# Function that updates the configuration of the service environment
 function set_config() {
 	key="$1"
 	value="$2"
