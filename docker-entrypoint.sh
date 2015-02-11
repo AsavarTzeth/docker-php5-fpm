@@ -5,19 +5,22 @@ set -e
 : ${PHP5_FPM_LOG_LEVEL:=notice}
 : ${PHP5_FPM_LISTEN:=127.0.0.1:9000}
 
-# Common config edit function
-set_config() {
-    key="$1"
-    value="$2"
-    # Do a loop so sed can scale with number of files/options
-    for i in $(find $CONF_DIR_PHP5_FPM -type f); do
-        sed -ri "s|\S*($key\s+=).*|\1 $value|g" $i
-    done
+# Function used to update the service environment configuration
+function set_config() {
+	key="$1"
+	value="$2"
+	# Edit php.ini, php-fpm.conf & pool.d/www.conf
+	sed -ri "s|\S*($key\s+=).*|\1 $value|" $config_file
 }
 
-# Apply default or user specified options to config files
+# Run configuration function for each config file
+config_file="/etc/php5/fpm/php.ini"
 set_config 'memory_limit' "$PHP5_FPM_MEMORY_LIMIT"
+
+config_file="/etc/php5/fpm/php-fpm.conf"
 set_config 'log_level' "$PHP5_FPM_LOG_LEVEL"
+
+config_file="/etc/php5/fpm/pool.d/www.conf"
 set_config 'listen' "$PHP5_FPM_LISTEN"
 
 exec "$@"
