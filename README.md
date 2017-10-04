@@ -1,4 +1,4 @@
-#How to use this image:#
+# How to use this image:
 
     docker run --name some-php5-fpm --link some-nginx:nginx -d asavartzeth/php5-fpm
 
